@@ -5,6 +5,7 @@ pub struct Car {
 
 impl Car {
     pub fn new(name: &str) -> Result<Car, &'static str> {
+        let name = name.trim();
         let name_char_length = name.chars().count();
         if name_char_length == 0 {
             return Err("자동차 이름은 공백일 수 없습니다.");
@@ -12,6 +13,7 @@ impl Car {
         if name_char_length > 5 {
             return Err("자동차 이름은 5글자 이내여야 합니다.");
         }
+
         Ok(Car { name: String::from(name), distance: 0 })
     }
 }
@@ -25,6 +27,12 @@ mod tests {
         let name = "유효한이름";
         let car = Car::new(name).unwrap();
         assert_eq!(car.distance, 0);
+    }
+
+    #[test]
+    fn name_blank_not_allowed() {
+        let name = " ";
+        assert!(Car::new(name).is_err())
     }
 
     #[test]
