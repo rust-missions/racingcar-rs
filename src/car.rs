@@ -8,10 +8,10 @@ impl Car {
         let name = name.trim();
         let name_char_length = name.chars().count();
         if name_char_length == 0 {
-            return Err("자동차 이름은 공백일 수 없습니다.");
+            return Err("[ERROR] 자동차 이름은 공백일 수 없습니다.");
         }
         if name_char_length > 5 {
-            return Err("자동차 이름은 5글자 이내여야 합니다.");
+            return Err("[ERROR] 자동차 이름은 5글자 이내여야 합니다.");
         }
 
         Ok(Car { name: String::from(name), distance: 0 })
@@ -56,8 +56,7 @@ mod tests {
 
     #[test]
     fn move_forward_on_4_or_more() {
-        let name = "유효한이름";
-        let car = Car::new(name).unwrap();
+        let car = Car::new("유효한이름").unwrap();
         let car = car.play(4);
 
         assert_eq!(car.distance, 1);
@@ -65,8 +64,7 @@ mod tests {
 
     #[test]
     fn stop_on_3_or_less() {
-        let name = "유효한이름";
-        let car = Car::new(name).unwrap();
+        let car = Car::new("유효한이름").unwrap();
         let car = car.play(3);
 
         assert_eq!(car.distance, 0);
