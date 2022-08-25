@@ -3,6 +3,7 @@ use crate::cars::Cars;
 pub struct Game {
     pub cars: Cars,
     pub round: u32,
+    pub total_rounds: u32,
 }
 
 pub struct RoundResult {
@@ -10,14 +11,14 @@ pub struct RoundResult {
 }
 
 impl Game {
-    pub fn new(cars: Cars) -> Game {
-        Game { cars, round: 0 }
+    pub fn new(cars: Cars, total_rounds: u32) -> Game {
+        Game { cars, round: 0, total_rounds }
     }
 
-    pub fn play_all_rounds(&mut self, total_rounds: u32) -> Vec<RoundResult> {
+    pub fn play_all_rounds(&mut self) -> Vec<RoundResult> {
         let mut game_results = Vec::new();
         loop {
-            if self.is_over(total_rounds) {
+            if self.is_over() {
                 break;
             }
             game_results.push(self.play());
@@ -31,8 +32,8 @@ impl Game {
         RoundResult { cars: self.cars.clone() }
     }
 
-    fn is_over(&self, total_rounds: u32) -> bool {
-        self.round == total_rounds
+    fn is_over(&self) -> bool {
+        self.round == self.total_rounds
     }
 
     pub fn get_winners(&self) -> Vec<String> {
@@ -59,7 +60,7 @@ mod tests {
         cars.push(Car { name: String::from("w1"), distance: 3 });
         cars.push(Car { name: String::from("w2"), distance: 3 });
         cars.push(Car { name: String::from("loser"), distance: 2 });
-        let game = Game { cars: Cars { value: cars }, round: 5 };
+        let game = Game { cars: Cars { value: cars }, round: 5, total_rounds: 10 };
 
         assert_eq!(game.get_winners(), vec!["w1", "w2"]);
     }

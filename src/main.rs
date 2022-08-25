@@ -12,7 +12,7 @@ fn main() {
     let cars = Cars::new(view::read_car_names_input()).unwrap();
     let total_rounds = view::read_total_rounds_input();
 
-    let mut game = Game::new(cars);
-    view::print_game_result(game.play_all_rounds(total_rounds));
+    let mut game = Game::new(cars, total_rounds);
+    view::print_game_result(game.play_all_rounds());
     view::print_winners_output(game.get_winners());
 }
