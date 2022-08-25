@@ -1,4 +1,5 @@
 use std::io;
+use crate::game::RoundResult;
 
 pub fn read_car_names_input() -> Vec<String> {
     let mut car_names_input = String::new();
@@ -30,6 +31,16 @@ pub fn read_total_rounds_input() -> u32 {
                 continue;
             }
         };
+    }
+}
+
+pub fn game_result(round_results: Vec<RoundResult>) {
+    println!("실행결과");
+    for round_result in &round_results {
+        for car in &round_result.cars.value {
+            println!("{} : {}", car.name, "-".repeat(car.distance as usize));
+        }
+        println!();
     }
 }
 

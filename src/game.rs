@@ -5,6 +5,10 @@ pub struct Game {
     pub round: u32,
 }
 
+pub struct RoundResult {
+    pub cars: Cars,
+}
+
 impl Game {
     pub fn new(cars: Cars) -> Game {
         Game { cars, round: 0 }
