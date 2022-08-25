@@ -27,4 +27,37 @@ impl Game {
     pub fn is_over(&self, total_rounds: u32) -> bool {
         self.round == total_rounds
     }
+
+    pub fn get_winners(&self) -> Vec<String> {
+        let max_distance = &self.cars.iter()
+            .max_by_key(|car| car.distance)
+            .unwrap()
+            .distance;
+
+        let mut winners = Vec::new();
+        for car in &self.cars {
+            if max_distance > &car.distance {
+                continue;
+            }
+            winners.push(car.name.clone());
+        }
+        winners
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use crate::Game;
+    use super::Car;
+
+    #[test]
+    fn get_winners() {
+        let mut cars = Vec::new();
+        cars.push(Car { name: String::from("w1"), distance: 3 });
+        cars.push(Car { name: String::from("w2"), distance: 3 });
+        cars.push(Car { name: String::from("loser"), distance: 2 });
+        let game = Game { cars, round: 5 };
+
+        assert_eq!(game.get_winners(), vec!["w1", "w2"]);
+    }
 }
