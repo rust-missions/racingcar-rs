@@ -1,6 +1,6 @@
 pub struct Car {
     pub name: String,
-    pub distance: i32,
+    pub distance: u32,
 }
 
 impl Car {
@@ -15,6 +15,13 @@ impl Car {
         }
 
         Ok(Car { name: String::from(name), distance: 0 })
+    }
+
+    pub fn play(&self, number: i8) -> Car {
+        if number >= 4 {
+            return Car { name: self.name.clone(), distance: self.distance + 1 };
+        }
+        Car { name: self.name.clone(), distance: self.distance }
     }
 }
 
@@ -45,5 +52,23 @@ mod tests {
     fn name_max_five_characters() {
         let name = "여섯글자이름";
         assert!(Car::new(name).is_err())
+    }
+
+    #[test]
+    fn move_forward_on_4_or_more() {
+        let name = "유효한이름";
+        let car = Car::new(name).unwrap();
+        let car = car.play(4);
+
+        assert_eq!(car.distance, 1);
+    }
+
+    #[test]
+    fn stop_on_3_or_less() {
+        let name = "유효한이름";
+        let car = Car::new(name).unwrap();
+        let car = car.play(3);
+
+        assert_eq!(car.distance, 0);
     }
 }
