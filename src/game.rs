@@ -14,21 +14,21 @@ impl Game {
         Game { cars, round: 0 }
     }
 
-    pub fn play_all_rounds(&self, total_rounds: u32) -> Vec<RoundResult> {
-        let mut game = Game { cars: self.cars.clone(), round: self.round };
+    pub fn play_all_rounds(&mut self, total_rounds: u32) -> Vec<RoundResult> {
         let mut game_results = Vec::new();
         loop {
-            if game.is_over(total_rounds) {
+            if self.is_over(total_rounds) {
                 break;
             }
-            game = game.play();
-            game_results.push(RoundResult { cars: game.cars.clone() });
+            game_results.push(self.play());
         }
         game_results
     }
 
-    fn play(&self) -> Game {
-        Game { cars: self.cars.play_round(), round: self.round + 1 }
+    fn play(&mut self) -> RoundResult {
+        self.cars = self.cars.play_round();
+        self.round += 1;
+        RoundResult { cars: self.cars.clone() }
     }
 
     fn is_over(&self, total_rounds: u32) -> bool {
