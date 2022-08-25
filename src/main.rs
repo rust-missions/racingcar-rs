@@ -12,17 +12,7 @@ fn main() {
     let cars = Cars::new(view::read_car_names_input()).unwrap();
     let total_rounds = view::read_total_rounds_input();
 
-    let mut game = Game::new(cars);
-    println!("실행결과");
-    loop {
-        if game.is_over(total_rounds) {
-            break;
-        }
-        game = game.play();
-        for car in &game.cars.value {
-            println!("{} : {}", car.name, "-".repeat(car.distance as usize));
-        }
-        println!();
-    }
+    let game = Game::new(cars);
+    view::game_result(game.play_all_rounds(total_rounds));
     view::winners_output(game.get_winners());
 }
