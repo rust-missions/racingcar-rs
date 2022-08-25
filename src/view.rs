@@ -1,5 +1,5 @@
-use std::io;
 use crate::game::RoundResult;
+use std::io;
 
 pub fn read_car_names_input() -> Vec<String> {
     let mut car_names_input = String::new();
@@ -16,7 +16,9 @@ pub fn read_total_rounds_input() -> u32 {
     println!("시도할 횟수는 몇회인가요?");
     loop {
         let mut total_rounds_input = String::new();
-        io::stdin().read_line(&mut total_rounds_input).expect("[ERROR] 횟수를 입력해야 합니다.");
+        io::stdin()
+            .read_line(&mut total_rounds_input)
+            .expect("[ERROR] 횟수를 입력해야 합니다.");
 
         return match total_rounds_input.trim().parse::<u32>() {
             Ok(num) => {
@@ -35,7 +37,8 @@ pub fn read_total_rounds_input() -> u32 {
 }
 
 pub fn print_game_result(round_results: Vec<RoundResult>) {
-    let round_result_announcements = round_results.iter()
+    let round_result_announcements = round_results
+        .iter()
         .map(|round_result| format!("{}\n", collect_and_join_round_result(round_result)))
         .collect::<Vec<String>>()
         .join("\n");
@@ -43,7 +46,9 @@ pub fn print_game_result(round_results: Vec<RoundResult>) {
 }
 
 fn collect_and_join_round_result(round_result: &RoundResult) -> String {
-    round_result.cars.value
+    round_result
+        .cars
+        .value
         .iter()
         .map(|car| format!("{} : {}", car.name, "-".repeat(car.distance as usize)))
         .collect::<Vec<String>>()

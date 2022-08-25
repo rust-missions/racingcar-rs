@@ -11,7 +11,7 @@ impl Cars {
         for car_name in car_names {
             let car = match Car::new(car_name.as_str()) {
                 Ok(car) => car,
-                Err(e) => return Err(e)
+                Err(e) => return Err(e),
             };
             cars.push(car);
         }
@@ -21,7 +21,10 @@ impl Cars {
     pub fn clone(&self) -> Cars {
         let mut cars = Vec::new();
         for car in &self.value {
-            cars.push(Car { name: car.name.clone(), distance: car.distance });
+            cars.push(Car {
+                name: car.name.clone(),
+                distance: car.distance,
+            });
         }
         Cars { value: cars }
     }
@@ -36,7 +39,8 @@ impl Cars {
     }
 
     pub fn calculate_max_distance(&self) -> u32 {
-        self.value.iter()
+        self.value
+            .iter()
             .max_by_key(|car| car.distance)
             .unwrap()
             .distance

@@ -14,14 +14,23 @@ impl Car {
             return Err("[ERROR] 자동차 이름은 5글자 이내여야 합니다.");
         }
 
-        Ok(Car { name: String::from(name), distance: 0 })
+        Ok(Car {
+            name: String::from(name),
+            distance: 0,
+        })
     }
 
     pub fn play(&self, number: i8) -> Car {
         if number >= 4 {
-            return Car { name: self.name.clone(), distance: self.distance + 1 };
+            return Car {
+                name: self.name.clone(),
+                distance: self.distance + 1,
+            };
         }
-        Car { name: self.name.clone(), distance: self.distance }
+        Car {
+            name: self.name.clone(),
+            distance: self.distance,
+        }
     }
 }
 
