@@ -35,10 +35,11 @@ pub fn read_total_rounds_input() -> u32 {
 }
 
 pub fn print_game_result(round_results: Vec<RoundResult>) {
-    println!("실행결과");
-    for round_result in &round_results {
-        println!("{}\n", collect_and_join_round_result(round_result));
-    }
+    let round_result_announcements = round_results.iter()
+        .map(|round_result| format!("{}\n", collect_and_join_round_result(round_result)))
+        .collect::<Vec<String>>()
+        .join("\n");
+    println!("실행결과\n{}", round_result_announcements);
 }
 
 fn collect_and_join_round_result(round_result: &RoundResult) -> String {
@@ -48,7 +49,6 @@ fn collect_and_join_round_result(round_result: &RoundResult) -> String {
         .collect::<Vec<String>>()
         .join("\n")
 }
-
 
 pub fn print_winners_output(winners: Vec<String>) {
     println!("최종 우승자 : {}", winners.join(", "))
