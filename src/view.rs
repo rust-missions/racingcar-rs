@@ -32,3 +32,7 @@ pub fn read_total_rounds_input() -> u32 {
         };
     }
 }
+
+pub fn winners_output(winners: Vec<String>) {
+    println!("최종 우승자 : {}", winners.join(", "))
+}

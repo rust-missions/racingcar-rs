@@ -14,7 +14,7 @@ fn main() {
     println!("실행결과");
     loop {
         if game.is_over(total_rounds) {
-           break
+            break;
         }
         game = game.play();
         for car in &game.cars {
@@ -22,6 +22,5 @@ fn main() {
         }
         println!();
     }
-
-    println!("최종 우승자 : {}", game.get_winners().join(", "))
+    view::winners_output(game.get_winners());
 }
