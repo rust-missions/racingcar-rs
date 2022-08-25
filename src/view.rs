@@ -25,7 +25,7 @@ pub fn read_total_rounds_input() -> u32 {
                     continue;
                 }
                 num
-            },
+            }
             Err(_) => {
                 println!("1 이상의 정수를 입력해야 합니다. (허용 범위: 1 ~ 4294967296)");
                 continue;
@@ -37,10 +37,11 @@ pub fn read_total_rounds_input() -> u32 {
 pub fn print_game_result(round_results: Vec<RoundResult>) {
     println!("실행결과");
     for round_result in &round_results {
-        for car in &round_result.cars.value {
-            println!("{} : {}", car.name, "-".repeat(car.distance as usize));
-        }
-        println!();
+        let round_announcement: &Vec<String> = &round_result.cars.value
+            .iter()
+            .map(|car| format!("{} : {}", car.name, "-".repeat(car.distance as usize)))
+            .collect();
+        println!("{}\n", round_announcement.join("\n"));
     }
 }
 
