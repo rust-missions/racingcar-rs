@@ -14,9 +14,17 @@ impl Cars {
         Ok(Cars { value: cars })
     }
 
-    pub fn play_round(self) -> Cars {
+    pub fn clone(&self) -> Cars {
+        let mut cars = Vec::new();
+        for car in &self.value {
+            cars.push(Car { name: car.name.clone(), distance: car.distance });
+        }
+        Cars { value: cars }
+    }
+
+    pub fn play_round(&self) -> Cars {
         let mut new_cars = Vec::new();
-        for car in self.value {
+        for car in &self.value {
             let random_number = rand::thread_rng().gen_range(0..=9);
             new_cars.push(car.play(random_number));
         }
