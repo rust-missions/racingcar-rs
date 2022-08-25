@@ -2,9 +2,11 @@ name: Rust
 
 on:
   push:
-    branches: [main]
+    branches:
+      - '**'
   pull_request:
-    branches: [main]
+    branches:
+      - '**'
     types: [opened, synchronize, ready_for_review, reopened]
 
 env:
