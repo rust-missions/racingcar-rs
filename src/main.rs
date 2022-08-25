@@ -13,6 +13,6 @@ fn main() {
     let total_rounds = view::read_total_rounds_input();
 
     let game = Game::new(cars);
-    view::game_result(game.play_all_rounds(total_rounds));
-    view::winners_output(game.get_winners());
+    view::print_game_result(game.play_all_rounds(total_rounds));
+    view::print_winners_output(game.get_winners());
 }

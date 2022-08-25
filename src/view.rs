@@ -34,7 +34,7 @@ pub fn read_total_rounds_input() -> u32 {
     }
 }
 
-pub fn game_result(round_results: Vec<RoundResult>) {
+pub fn print_game_result(round_results: Vec<RoundResult>) {
     println!("실행결과");
     for round_result in &round_results {
         for car in &round_result.cars.value {
@@ -44,6 +44,6 @@ pub fn game_result(round_results: Vec<RoundResult>) {
     }
 }
 
-pub fn winners_output(winners: Vec<String>) {
+pub fn print_winners_output(winners: Vec<String>) {
     println!("최종 우승자 : {}", winners.join(", "))
 }
