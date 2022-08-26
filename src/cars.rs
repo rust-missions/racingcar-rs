@@ -40,14 +40,10 @@ impl Cars {
     }
 
     pub fn calculate_max_distance(&self) -> Result<u32, Error> {
-        let max_distance = self
-            .value
-            .iter()
-            .max_by_key(|car| car.distance)
-            .ok_or_else(|| Error::NoWinner)?
-            .distance;
-
-        Ok(max_distance)
+        match self.value.iter().max_by_key(|car| car.distance) {
+            Some(car) => Ok(car.distance),
+            None => Err(Error::NoWinner),
+        }
     }
 }
 
