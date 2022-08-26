@@ -58,15 +58,16 @@ mod tests {
 
     #[test]
     fn calculate_max_distance() {
-        let mut cars = Vec::new();
-        cars.push(Car {
-            name: String::from("winner"),
-            distance: 10,
-        });
-        cars.push(Car {
-            name: String::from("loser"),
-            distance: 5,
-        });
+        let cars = vec![
+            Car {
+                name: String::from("winner"),
+                distance: 10,
+            },
+            Car {
+                name: String::from("loser"),
+                distance: 5,
+            },
+        ];
         let cars = Cars { value: cars };
 
         assert_eq!(cars.calculate_max_distance(), Ok(10));

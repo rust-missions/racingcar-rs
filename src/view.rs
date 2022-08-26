@@ -29,7 +29,7 @@ fn read_car_names_input() -> Result<Vec<String>, io::Error> {
     io::stdin().read_line(&mut car_names_input)?;
 
     let mut names = Vec::new();
-    for name in car_names_input.split(",") {
+    for name in car_names_input.split(',') {
         names.push(name.to_string());
     }
     Ok(names)

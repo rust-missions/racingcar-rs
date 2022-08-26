@@ -70,19 +70,20 @@ mod tests {
 
     #[test]
     fn get_winners() {
-        let mut cars = Vec::new();
-        cars.push(Car {
-            name: String::from("w1"),
-            distance: 3,
-        });
-        cars.push(Car {
-            name: String::from("w2"),
-            distance: 3,
-        });
-        cars.push(Car {
-            name: String::from("loser"),
-            distance: 2,
-        });
+        let cars = vec![
+            Car {
+                name: String::from("w1"),
+                distance: 3,
+            },
+            Car {
+                name: String::from("w2"),
+                distance: 3,
+            },
+            Car {
+                name: String::from("loser"),
+                distance: 2,
+            },
+        ];
         let game = Game {
             cars: Cars { value: cars },
             round: 5,
