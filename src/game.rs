@@ -1,3 +1,4 @@
+use std::process;
 use crate::cars::Cars;
 
 pub struct Game {
@@ -43,14 +44,17 @@ impl Game {
     }
 
     pub fn get_winners(&self) -> Vec<&str> {
-        let max_distance = match &self.cars.calculate_max_distance() {
+        let max_distance = match self.cars.calculate_max_distance() {
             Ok(max_distance) => max_distance,
-            Err(e) => eprintln!("{}", e),
+            Err(e) => {
+                eprintln!("{}", e);
+                process::exit(1);
+            },
         };
 
         let mut winners = Vec::new();
         for car in &self.cars.value {
-            if max_distance > &car.distance {
+            if max_distance > car.distance {
                 continue;
             }
             winners.push(car.name.as_str());
