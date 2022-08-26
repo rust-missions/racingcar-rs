@@ -1,15 +1,37 @@
 use crate::game::RoundResult;
+use crate::Cars;
 use std::io;
 
-pub fn read_car_names_input() -> Vec<String> {
+pub fn read_cars_input() -> Cars {
+    println!("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+    loop {
+        let car_names = match read_car_names_input() {
+            Ok(car_names) => car_names,
+            Err(e) => {
+                eprintln!("{}", e);
+                continue;
+            }
+        };
+
+        break match Cars::new(car_names) {
+            Ok(cars) => cars,
+            Err(e) => {
+                eprintln!("{}", e);
+                continue;
+            }
+        };
+    }
+}
+
+fn read_car_names_input() -> Result<Vec<String>, io::Error> {
     let mut car_names_input = String::new();
-    io::stdin().read_line(&mut car_names_input).unwrap();
+    io::stdin().read_line(&mut car_names_input)?;
 
     let mut names = Vec::new();
     for name in car_names_input.split(",") {
         names.push(name.to_string());
     }
-    names
+    Ok(names)
 }
 
 pub fn read_total_rounds_input() -> u32 {
