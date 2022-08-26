@@ -53,6 +53,19 @@ impl Game {
         }
         winners
     }
+
+    pub fn get_winners2(&self) -> Result<Vec<&str>, &'static str> {
+        let max_distance = &self.cars.calculate_max_distance2()?;
+        let mut winners = Vec::new();
+        for car in &self.cars.value {
+            if max_distance > &car.distance {
+                continue;
+            }
+            winners.push(car.name.as_str());
+        }
+
+        Ok(winners)
+    }
 }
 
 #[cfg(test)]
@@ -81,6 +94,6 @@ mod tests {
             total_rounds: 10,
         };
 
-        assert_eq!(game.get_winners(), vec!["w1", "w2"]);
+        assert_eq!(game.get_winners2(), Ok(vec!["w1", "w2"]));
     }
 }
