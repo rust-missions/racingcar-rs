@@ -55,6 +55,6 @@ fn collect_and_join_round_result(round_result: &RoundResult) -> String {
         .join("\n")
 }
 
-pub fn print_winners_output(winners: Vec<String>) {
+pub fn print_winners_output(winners: Vec<&str>) {
     println!("최종 우승자 : {}", winners.join(", "))
 }

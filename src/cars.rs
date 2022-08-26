@@ -38,15 +38,7 @@ impl Cars {
         Cars { value: new_cars }
     }
 
-    pub fn calculate_max_distance(&self) -> u32 {
-        self.value
-            .iter()
-            .max_by_key(|car| car.distance)
-            .unwrap()
-            .distance
-    }
-
-    pub fn calculate_max_distance2(&self) -> Result<u32, &'static str> {
+    pub fn calculate_max_distance(&self) -> Result<u32, &'static str> {
         let max_distance = self
             .value
             .iter()
@@ -57,7 +49,6 @@ impl Cars {
         Ok(max_distance)
     }
 }
-
 
 #[cfg(test)]
 mod tests {
@@ -77,12 +68,12 @@ mod tests {
         });
         let cars = Cars { value: cars };
 
-        assert_eq!(cars.calculate_max_distance2(), Ok(10));
+        assert_eq!(cars.calculate_max_distance(), Ok(10));
     }
 
     #[test]
     fn err_on_empty_cars() {
         let cars = Cars { value: Vec::new() };
-        assert!(cars.calculate_max_distance2().is_err());
+        assert!(cars.calculate_max_distance().is_err());
     }
 }
