@@ -4,6 +4,7 @@ use crate::game::Game;
 
 mod car;
 mod cars;
+mod error;
 mod game;
 mod view;
 
