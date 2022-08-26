@@ -7,8 +7,8 @@ pub fn read_cars_input() -> Cars {
     loop {
         let car_names = match read_car_names_input() {
             Ok(car_names) => car_names,
-            Err(e) => {
-                eprintln!("{}", e);
+            Err(_) => {
+                eprintln!("{}", "[ERROR] 다시 입력하시오.");
                 continue;
             }
         };
@@ -38,9 +38,13 @@ pub fn read_total_rounds_input() -> u32 {
     println!("시도할 횟수는 몇회인가요?");
     loop {
         let mut total_rounds_input = String::new();
-        io::stdin()
-            .read_line(&mut total_rounds_input)
-            .expect("[ERROR] 횟수를 입력해야 합니다.");
+        match io::stdin().read_line(&mut total_rounds_input) {
+            Ok(rounds_input) => rounds_input,
+            Err(_) => {
+                eprintln!("{}", "[ERROR] 다시 입력하시오.");
+                continue;
+            }
+        }
 
         return match total_rounds_input.trim().parse::<u32>() {
             Ok(num) => {
