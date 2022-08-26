@@ -1,5 +1,5 @@
-use std::process;
 use crate::cars::Cars;
+use std::process;
 
 pub struct Game {
     pub cars: Cars,
@@ -49,7 +49,7 @@ impl Game {
             Err(e) => {
                 eprintln!("{}", e);
                 process::exit(1);
-            },
+            }
         };
 
         let mut winners = Vec::new();
