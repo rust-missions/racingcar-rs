@@ -1,6 +1,6 @@
+use crate::error::Error;
 use crate::Car;
 use rand::Rng;
-use crate::error::Error;
 
 pub struct Cars {
     pub value: Vec<Car>,

@@ -1,6 +1,6 @@
+use crate::error::Error;
 use crate::game::RoundResult;
 use crate::Cars;
-use crate::error::Error;
 use std::io;
 
 pub fn read_cars_input() -> Cars {
