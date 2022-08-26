@@ -1,5 +1,6 @@
 use crate::game::RoundResult;
 use crate::Cars;
+use crate::error::Error;
 use std::io;
 
 pub fn read_cars_input() -> Cars {
@@ -8,7 +9,7 @@ pub fn read_cars_input() -> Cars {
         let car_names = match read_car_names_input() {
             Ok(car_names) => car_names,
             Err(_) => {
-                eprintln!("{}", "[ERROR] 다시 입력하시오.");
+                eprintln!("{}", Error::ReadLineFailed);
                 continue;
             }
         };
@@ -41,21 +42,21 @@ pub fn read_total_rounds_input() -> u32 {
         match io::stdin().read_line(&mut total_rounds_input) {
             Ok(rounds_input) => rounds_input,
             Err(_) => {
-                eprintln!("{}", "[ERROR] 다시 입력하시오.");
+                eprintln!("{}", Error::ReadLineFailed);
                 continue;
             }
-        }
+        };
 
         return match total_rounds_input.trim().parse::<u32>() {
             Ok(num) => {
                 if num == 0 {
-                    println!("[ERROR] 횟수는 0이 될 수 없습니다.");
+                    println!("{}", Error::ZeroTotalRounds);
                     continue;
                 }
                 num
             }
             Err(_) => {
-                println!("[ERROR] 1 이상의 정수를 입력해야 합니다. (허용 범위: 1 ~ 4294967296)");
+                println!("{}", Error::InvalidTotalRoundsRange);
                 continue;
             }
         };

@@ -1,17 +1,19 @@
+use crate::error::Error;
+
 pub struct Car {
     pub name: String,
     pub distance: u32,
 }
 
 impl Car {
-    pub fn new(name: &str) -> Result<Car, &'static str> {
+    pub fn new(name: &str) -> Result<Car, Error> {
         let name = name.trim();
         let name_char_length = name.chars().count();
         if name_char_length == 0 {
-            return Err("[ERROR] 자동차 이름은 공백일 수 없습니다.");
+            return Err(Error::BlankCarName);
         }
         if name_char_length > 5 {
-            return Err("[ERROR] 자동차 이름은 5글자 이내여야 합니다.");
+            return Err(Error::CarNameOverFiveCharacters);
         }
 
         Ok(Car {

@@ -1,12 +1,13 @@
 use crate::Car;
 use rand::Rng;
+use crate::error::Error;
 
 pub struct Cars {
     pub value: Vec<Car>,
 }
 
 impl Cars {
-    pub fn new(car_names: Vec<String>) -> Result<Cars, &'static str> {
+    pub fn new(car_names: Vec<String>) -> Result<Cars, Error> {
         let mut cars = Vec::new();
         for car_name in car_names {
             let car = match Car::new(car_name.as_str()) {
@@ -38,12 +39,12 @@ impl Cars {
         Cars { value: new_cars }
     }
 
-    pub fn calculate_max_distance(&self) -> Result<u32, &'static str> {
+    pub fn calculate_max_distance(&self) -> Result<u32, Error> {
         let max_distance = self
             .value
             .iter()
             .max_by_key(|car| car.distance)
-            .ok_or_else(|| "[ERROR] 우승자가 존재하지 않습니다.")?
+            .ok_or_else(|| Error::NoWinner)?
             .distance;
 
         Ok(max_distance)
