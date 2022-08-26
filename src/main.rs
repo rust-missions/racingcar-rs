@@ -13,8 +13,5 @@ fn main() {
 
     let mut game = Game::new(cars, total_rounds);
     view::print_game_result(game.play_all_rounds());
-    match game.get_winners() {
-        Ok(winners) => view::print_winners_output(winners),
-        Err(e) => eprintln!("{}", e),
-    }
+    view::print_winners_output(game.get_winners());
 }
