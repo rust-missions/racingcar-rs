@@ -45,4 +45,44 @@ impl Cars {
             .unwrap()
             .distance
     }
+
+    pub fn calculate_max_distance2(&self) -> Result<u32, &'static str> {
+        let max_distance = self
+            .value
+            .iter()
+            .max_by_key(|car| car.distance)
+            .ok_or_else(|| "[ERROR] 우승자가 존재하지 않습니다.")?
+            .distance;
+
+        Ok(max_distance)
+    }
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::Cars;
+    use crate::Car;
+
+    #[test]
+    fn calculate_max_distance() {
+        let mut cars = Vec::new();
+        cars.push(Car {
+            name: String::from("winner"),
+            distance: 10,
+        });
+        cars.push(Car {
+            name: String::from("loser"),
+            distance: 5,
+        });
+        let cars = Cars { value: cars };
+
+        assert_eq!(cars.calculate_max_distance2(), Ok(10));
+    }
+
+    #[test]
+    fn err_on_empty_cars() {
+        let cars = Cars { value: Vec::new() };
+        assert!(cars.calculate_max_distance2().is_err());
+    }
 }
