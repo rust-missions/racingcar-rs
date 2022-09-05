@@ -56,6 +56,36 @@ pub fn run_round(car_names: Vec<String>, dist_info: &mut Vec<String>) {
     }
 }
 
+pub fn print_result_format() {
+    println!("각 라운드 별 경기 결과");
+}
+
+pub fn print_result_from(car_names: Vec<String>, dist_info: Vec<String>) {
+    let mut scores: Vec<usize> = Vec::new();
+    let mut max_scores = 0;
+    let mut winner: Vec<&str> = Vec::new();
+    for i in 0..dist_info.len() as i64 {
+        let score = dist_info[i as usize].len();
+        scores.push(score);
+        max_scores = cmp::max(max_scores, score);
+    }
+
+    for i in 0..scores.len() as i64 {
+        let score = dist_info[i as usize].len();
+        if score == max_scores {
+            winner.push(&car_names[i as usize]);
+        }
+    }
+    print!("최종 우승자 : ");
+    for i in 0..winner.len() as i64 {
+        print!("{}", winner[i as usize]);
+        if i != (winner.len() - 1) as i64 {
+            print!(", ");
+        }
+    }
+    println!("");
+}
+
 fn main() {
     print_car_name_format();
     let car_names: Vec<String> = get_car_names_from_input().unwrap();
@@ -69,8 +99,12 @@ fn main() {
         dist_info.push("".to_owned());
     }
 
+    print_result_format();
+
     for _ in 0..total_round {
         run_round(car_names.clone(), &mut dist_info);
         print_result_per_round(car_names.clone(), dist_info.clone());
     }
+
+    print_result_from(car_names, dist_info);
 }
