@@ -39,4 +39,10 @@ fn main() {
 
     print_total_round_format();
     let total_round: i64 = get_total_round_from_input().unwrap();
+
+    let mut rng = rand::thread_rng();
+    let mut dist_info: Vec<String> = Vec::new();
+    for _ in 0..cars_num as i64 {
+        dist_info.push("".to_owned());
+    }
 }
