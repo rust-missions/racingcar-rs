@@ -1,6 +1,6 @@
 use {
     rand::Rng,
-    std::fmt::{Display, Formatter},
+    std::fmt::{Display, Formatter, Result},
 };
 
 pub struct Car {
@@ -22,7 +22,7 @@ impl Car {
 }
 
 impl Display for Car {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
         write!(f, "{} : {}", self.name, self.distance)
     }
 }
