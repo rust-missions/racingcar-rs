@@ -9,11 +9,11 @@ pub struct Car {
 }
 
 impl Car {
-    fn new(name: String) -> Self {
+    pub fn new(name: String) -> Self {
         Car { name, distance: 0 }
     }
 
-    fn move_forward(&mut self) {
+    pub fn move_forward(&mut self) {
         let rand_num = rand::thread_rng().gen_range(0..=10);
         if rand_num >= 4 {
             self.distance += 1;

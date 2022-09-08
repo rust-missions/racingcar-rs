@@ -1,6 +1,6 @@
-use {crate::model::Car, std::io};
+use {crate::car::Car, std::io};
 
-mod model;
+mod car;
 
 fn main() {
     // implement your logic
