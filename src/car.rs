@@ -3,14 +3,18 @@ use {
     std::fmt::{Display, Formatter, Result},
 };
 
+#[derive(Debug)]
 pub struct Car {
     name: String,
     distance: i32,
 }
 
 impl Car {
-    pub fn new(name: String) -> Self {
-        Car { name, distance: 0 }
+    pub fn new(name: &str) -> Self {
+        Car {
+            name: name.to_owned(),
+            distance: 0,
+        }
     }
 
     pub fn move_forward(&mut self) {
@@ -33,7 +37,7 @@ mod test {
 
     #[test]
     fn print_car() {
-        let car = Car::new("ding-young".to_string());
+        let car = Car::new("ding-young");
         assert_eq!("ding-young : 0", format!("{}", car));
     }
 }
