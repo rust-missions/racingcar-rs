@@ -5,8 +5,8 @@ use {
 
 #[derive(Debug)]
 pub struct Car {
-    name: String,
-    distance: i32,
+    pub name: String,
+    pub distance: i32,
 }
 
 impl Car {

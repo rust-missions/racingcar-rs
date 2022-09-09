@@ -1,5 +1,6 @@
 use crate::Car;
 
+#[derive(Debug)]
 pub struct Game {
     round: i32,
     cars: Vec<Car>,
@@ -10,16 +11,36 @@ impl Game {
         Game { round, cars }
     }
 
-    pub fn run(&mut self) {}
+    pub fn run(&mut self) {
+        for i in 0..self.round {
+            for mut car in self.cars.iter_mut() {
+                car.move_forward();
+            }
+        }
+    }
 
-    pub fn winners(&self) -> Vec<Car> {
-        vec![Car::new("tmp")]
+    pub fn winners(&self) -> Vec<&Car> {
+        let mut longest_distance = 0;
+        let mut winners: Vec<&Car> = Vec::new();
+
+        // 그냥 너무 자바 같은데 우쨔지
+        for car in self.cars.iter() {
+            if car.distance > longest_distance {
+                longest_distance = car.distance;
+                winners.pop();
+                winners.push(car);
+            } else if car.distance == longest_distance {
+                winners.push(car);
+            } else {
+            }
+        }
+        winners
     }
 }
 
 #[cfg(test)]
 mod test {
-    use {super::*, crate::Car};
+    use super::*;
 
     #[test]
     fn winners() {
@@ -31,16 +52,13 @@ mod test {
             name: "young".to_string(),
             distance: 0,
         };
-        let cars = vec![ding, young];
-        let game = Game::new(0, cars);
-        assert_eq!(game.winners(), vec![ding]); // does this test compares two vec properly?
-
         let hi = Car {
             name: "hi".to_string(),
             distance: 2,
         };
-        let three_cars = vec![ding, hi, young];
-        let game = Game::new(0, three_cars);
-        assert_eq!(game.winner())
+
+        let cars = vec![ding, young, hi];
+        let game = Game::new(0, cars);
+        println!("{:?}", game.winners());
     }
 }
