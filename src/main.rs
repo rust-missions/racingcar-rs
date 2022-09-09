@@ -1,6 +1,6 @@
 use {
     rand::Rng,
-    std::{any::type_name, cmp, io},
+    std::{cmp, io},
 };
 
 pub fn print_car_name_format() {
@@ -26,41 +26,35 @@ pub fn print_total_round_format() {
     println!("전체 라운드 수는 몇회인가요?");
 }
 
-fn type_of<T>(_: T) -> &'static str {
-    type_name::<T>()
-}
-
 pub fn get_total_round_from_input() -> i64 {
-    let mut total_round = 0;
     loop {
         let mut line = String::new();
         io::stdin()
             .read_line(&mut line)
             .expect("잘못된 입력입니다.");
-        total_round = match line.trim().parse::<i64>() {
+        let total_round = match line.trim().parse::<i64>() {
             Ok(total_round) => total_round,
             Err(_) => {
                 eprintln!("[Error] 시도 횟수는 숫자여야 한다.");
                 continue;
             }
         };
-        break;
+        return total_round;
     }
-    total_round
 }
 
 pub fn print_result_per_round(car_names: Vec<String>, dist_info: Vec<String>) {
     let cars_num: i64 = car_names.len() as i64;
     for car_num in 0..cars_num {
-        print!(
-            "{} : {}\n",
+        println!(
+            "{} : {}",
             car_names[car_num as usize], dist_info[car_num as usize]
         );
     }
     println!();
 }
 
-pub fn run_round(car_names: Vec<String>, dist_info: &mut Vec<String>) {
+pub fn run_round(car_names: Vec<String>, dist_info: &mut [String]) {
     let mut rng = rand::thread_rng();
     let cars_num: i64 = car_names.len() as i64;
     for car_num in 0..cars_num {
@@ -99,7 +93,7 @@ pub fn print_result_from(car_names: Vec<String>, dist_info: Vec<String>) {
             print!(", ");
         }
     }
-    println!("");
+    println!();
 }
 
 fn main() {
