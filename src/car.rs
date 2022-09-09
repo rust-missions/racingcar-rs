@@ -3,7 +3,7 @@ use {
     std::fmt::{Display, Formatter, Result},
 };
 
-#[derive(Debug)]
+#[derive(Debug, Eq, PartialEq)]
 pub struct Car {
     pub name: String,
     pub distance: i32,

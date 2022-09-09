@@ -12,8 +12,8 @@ impl Game {
     }
 
     pub fn run(&mut self) {
-        for i in 0..self.round {
-            for mut car in self.cars.iter_mut() {
+        for _ in 0..self.round {
+            for car in self.cars.iter_mut() {
                 car.move_forward();
             }
         }
