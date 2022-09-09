@@ -1,3 +1,4 @@
+use std::fmt::format;
 use {
     crate::{car::Car, game::Game},
     std::io,
@@ -31,5 +32,15 @@ fn main() {
     println!("{}", round);
 
     // 2. make a game & run
-    let game = Game::new(round, cars);
+    let mut game = Game::new(round, cars);
+    game.run();
+
+    // 3. print winners
+    let winners = game.winners();
+    let winner_names = winners
+        .iter()
+        .map(|&car| car.name.to_owned())
+        .collect::<Vec<String>>()
+        .join(", ");
+    println!("{}", format!("최종 우승자 : {}", winner_names))
 }
