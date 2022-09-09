@@ -1,23 +1,25 @@
 use {
     rand::Rng,
-    std::{any::type_name, cmp, fmt::Error, io},
+    std::{any::type_name, cmp, io},
 };
 
 pub fn print_car_name_format() {
     println!("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
 }
 
-pub fn get_car_names_from_input() -> Result<Vec<String>, Error> {
+pub fn get_car_names_from_input() -> Vec<String> {
+    let mut cars: Vec<String> = Vec::new();
+
     let mut line = String::new();
     io::stdin()
         .read_line(&mut line)
         .expect("잘못된 입력입니다.");
+
     let splited: Vec<&str> = line.trim().split(',').collect();
-    let mut cars: Vec<String> = Vec::new();
     for i in 0..splited.len() as i64 {
         cars.push(splited[i as usize].to_owned());
     }
-    Ok(cars)
+    cars
 }
 
 pub fn print_total_round_format() {
@@ -102,7 +104,7 @@ pub fn print_result_from(car_names: Vec<String>, dist_info: Vec<String>) {
 
 fn main() {
     print_car_name_format();
-    let car_names: Vec<String> = get_car_names_from_input().unwrap();
+    let car_names: Vec<String> = get_car_names_from_input();
     let cars_num: i64 = car_names.len() as i64;
 
     print_total_round_format();
