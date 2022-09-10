@@ -15,7 +15,9 @@ impl Game {
         for _ in 0..self.round {
             for car in self.cars.iter_mut() {
                 car.move_forward();
+                println!("{}", car);
             }
+            println!();
         }
     }
 
@@ -23,7 +25,6 @@ impl Game {
         let mut longest_distance = 0;
         let mut winners: Vec<&Car> = Vec::new();
 
-        // 그냥 너무 자바 같은데 우쨔지
         for car in self.cars.iter() {
             if car.distance > longest_distance {
                 longest_distance = car.distance;

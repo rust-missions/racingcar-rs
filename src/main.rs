@@ -17,6 +17,7 @@ fn main() {
 
     // 2. make a game & run
     let mut game = Game::new(round, cars);
+    println!("실행 결과");
     game.run();
 
     // 3. find & print winners
@@ -28,9 +29,13 @@ fn main() {
 fn parse_cars() -> Vec<Car> {
     let mut cars = String::new();
 
+    println!("경주할 자동차 이름을 입력하세요. (이름은 쉼표(,) 기준으로 구분)");
+
     io::stdin()
         .read_line(&mut cars)
         .expect("[ERROR] Failed to read line");
+
+    println!();
 
     let car_names: Vec<&str> = cars.trim().split(',').collect();
     let cars = car_names.iter().map(|name| Car::new(name)).collect();
@@ -41,9 +46,13 @@ fn parse_cars() -> Vec<Car> {
 fn parse_round() -> i32 {
     let mut round = String::new();
 
+    println!("시도할 횟수는 몇회인가요?");
+
     io::stdin()
         .read_line(&mut round)
         .expect("[ERROR] Failed to read line");
+
+    println!();
 
     let round: i32 = round.trim().parse().expect("[ERROR] Please type a number!");
 
