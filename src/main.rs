@@ -1,3 +1,5 @@
+extern crate core;
+
 use {
     crate::{car::Car, game::Game},
     std::io,
@@ -28,7 +30,7 @@ fn parse_cars() -> Vec<Car> {
 
     io::stdin()
         .read_line(&mut cars)
-        .expect("Failed to read line");
+        .expect("[ERROR] Failed to read line");
 
     let car_names: Vec<&str> = cars.trim().split(',').collect();
     let cars = car_names.iter().map(|name| Car::new(name)).collect();
@@ -41,9 +43,9 @@ fn parse_round() -> i32 {
 
     io::stdin()
         .read_line(&mut round)
-        .expect("Failed to read line");
+        .expect("[ERROR] Failed to read line");
 
-    let round: i32 = round.trim().parse().expect("Please type a number!");
+    let round: i32 = round.trim().parse().expect("[ERROR] Please type a number!");
 
     round
 }
@@ -69,10 +71,10 @@ mod tests {
 
         let winners = vec![&ding, &young, &hi];
         let output = format_winners(winners);
-        assert_eq!("최종 우승자 : ding, young, hi", winner_names);
+        assert_eq!("최종 우승자 : ding, young, hi", output);
 
         let winners = vec![&ding];
         let output = format_winners(winners);
-        assert_eq!("최종 우승자 : ding", winner_names);
+        assert_eq!("최종 우승자 : ding", output);
     }
 }

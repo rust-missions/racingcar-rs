@@ -1,6 +1,7 @@
 use {
     rand::Rng,
-    std::fmt::{Display, Formatter, Result},
+    std::fmt,
+    std::fmt::{Display, Formatter},
 };
 
 #[derive(Debug, Eq, PartialEq)]
@@ -11,6 +12,9 @@ pub struct Car {
 
 impl Car {
     pub fn new(name: &str) -> Self {
+        if name.len() > 5 {
+            panic!("[ERROR] 이름은 5자 이하만 가능합니다.");
+        }
         Car {
             name: name.to_owned(),
             distance: 0,
@@ -26,7 +30,7 @@ impl Car {
 }
 
 impl Display for Car {
-    fn fmt(&self, f: &mut Formatter<'_>) -> Result {
+    fn fmt(&self, f: &mut Formatter<'_>) -> fmt::Result {
         write!(f, "{} : {}", self.name, self.distance)
     }
 }
@@ -37,7 +41,7 @@ mod test {
 
     #[test]
     fn print_car() {
-        let car = Car::new("ding-young");
-        assert_eq!("ding-young : 0", format!("{}", car));
+        let car = Car::new("ding");
+        assert_eq!("ding : 0", format!("{}", car));
     }
 }
