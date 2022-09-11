@@ -1,19 +1,18 @@
-extern crate core;
-
 use {
-    crate::{car::Car, game::Game},
+    crate::{car::Car, error::RacingCarError, game::Game},
     std::io,
 };
 
 mod car;
+mod error;
 mod game;
 
-fn main() {
-    // implement your logic
+pub type Result<T> = std::result::Result<T, RacingCarError>;
 
-    // 1. parse input
-    let cars = parse_cars();
-    let round = parse_round();
+fn main() {
+    // 1. read & parse input
+    let cars: Vec<Car> = valid_cars_from_input();
+    let round = valid_round_from_input();
 
     // 2. make a game & run
     let mut game = Game::new(round, cars);
@@ -26,37 +25,52 @@ fn main() {
     println!("{}", output);
 }
 
-fn parse_cars() -> Vec<Car> {
+fn valid_cars_from_input() -> Vec<Car> {
+    loop {
+        match read_input_cars() {
+            Ok(cars) => {
+                return cars;
+            }
+            Err(e) => eprintln!("[ERROR] {}", e),
+        }
+    }
+}
+
+fn valid_round_from_input() -> i32 {
+    loop {
+        match read_input_round() {
+            Ok(round) => return round,
+            Err(e) => eprintln!("[ERROR] {}", e),
+        }
+    }
+}
+
+fn read_input_cars() -> Result<Vec<Car>> {
     let mut cars = String::new();
 
     println!("경주할 자동차 이름을 입력하세요. (이름은 쉼표(,) 기준으로 구분)");
 
-    io::stdin()
-        .read_line(&mut cars)
-        .expect("[ERROR] Failed to read line");
+    io::stdin().read_line(&mut cars)?;
 
     println!();
 
     let car_names: Vec<&str> = cars.trim().split(',').collect();
-    let cars = car_names.iter().map(|name| Car::new(name)).collect();
+    let cars: std::result::Result<Vec<_>, _> = car_names.iter().map(|car| Car::new(car)).collect();
 
     cars
 }
 
-fn parse_round() -> i32 {
+fn read_input_round() -> Result<i32> {
     let mut round = String::new();
 
     println!("시도할 횟수는 몇회인가요?");
 
-    io::stdin()
-        .read_line(&mut round)
-        .expect("[ERROR] Failed to read line");
+    io::stdin().read_line(&mut round)?;
 
     println!();
 
-    let round: i32 = round.trim().parse().expect("[ERROR] Please type a number!");
-
-    round
+    let round: i32 = round.trim().parse()?;
+    Ok(round)
 }
 
 fn format_winners(winners: Vec<&Car>) -> String {
@@ -74,9 +88,9 @@ mod tests {
 
     #[test]
     fn test_format_winners() {
-        let ding = Car::new("ding");
-        let young = Car::new("young");
-        let hi = Car::new("hi");
+        let ding = Car::new("ding").unwrap();
+        let young = Car::new("young").unwrap();
+        let hi = Car::new("hi").unwrap();
 
         let winners = vec![&ding, &young, &hi];
         let output = format_winners(winners);

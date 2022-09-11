@@ -1,4 +1,4 @@
-use crate::Car;
+use {crate::Car, std::cmp::Ordering};
 
 #[derive(Debug)]
 pub struct Game {
@@ -26,14 +26,25 @@ impl Game {
         let mut winners: Vec<&Car> = Vec::new();
 
         for car in self.cars.iter() {
-            if car.distance > longest_distance {
-                longest_distance = car.distance;
-                winners.pop();
-                winners.push(car);
-            } else if car.distance == longest_distance {
-                winners.push(car);
-            } else {
+            match car.distance.cmp(&longest_distance) {
+                Ordering::Less => {}
+                Ordering::Equal => {
+                    winners.push(car);
+                }
+                Ordering::Greater => {
+                    longest_distance = car.distance;
+                    winners.pop();
+                    winners.push(car);
+                }
             }
+            // if car.distance > longest_distance {
+            //     longest_distance = car.distance;
+            //     winners.pop();
+            //     winners.push(car);
+            // } else if car.distance == longest_distance {
+            //     winners.push(car);
+            // } else {
+            // }
         }
         winners
     }

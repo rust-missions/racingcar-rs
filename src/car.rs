@@ -1,4 +1,6 @@
 use {
+    super::Result,
+    crate::RacingCarError,
     rand::Rng,
     std::fmt,
     std::fmt::{Display, Formatter},
@@ -11,14 +13,14 @@ pub struct Car {
 }
 
 impl Car {
-    pub fn new(name: &str) -> Self {
+    pub fn new(name: &str) -> Result<Self> {
         if name.len() > 5 {
-            panic!("[ERROR] 이름은 5자 이하만 가능합니다.");
+            return Err(RacingCarError::InvalidCarName);
         }
-        Car {
+        Ok(Car {
             name: name.to_owned(),
             distance: 0,
-        }
+        })
     }
 
     pub fn move_forward(&mut self) {
@@ -40,8 +42,14 @@ mod test {
     use super::*;
 
     #[test]
+    fn new() {
+        let invalid_car = Car::new("tooLong");
+        assert_eq!(Err(RacingCarError::InvalidCarName), invalid_car);
+    }
+
+    #[test]
     fn print_car() {
-        let car = Car::new("ding");
+        let car = Car::new("ding").unwrap();
         assert_eq!("ding : 0", format!("{}", car));
     }
 }
