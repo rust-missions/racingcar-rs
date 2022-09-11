@@ -37,14 +37,6 @@ impl Game {
                     winners.push(car);
                 }
             }
-            // if car.distance > longest_distance {
-            //     longest_distance = car.distance;
-            //     winners.pop();
-            //     winners.push(car);
-            // } else if car.distance == longest_distance {
-            //     winners.push(car);
-            // } else {
-            // }
         }
         winners
     }
